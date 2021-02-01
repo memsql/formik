@@ -26,6 +26,7 @@ export interface FormikComputedProps<Values> {
   readonly dirty: boolean;
   readonly isValid: boolean;
   readonly initialValues: Values;
+  readonly initialErrors: FormikErrors<Values>;
 }
 export interface FormikActions<Values> {
   setStatus(status?: any): void;
@@ -47,7 +48,7 @@ export interface FormikActions<Values> {
   ): void;
   validateForm(values?: any): Promise<FormikErrors<Values>>;
   validateField(field: string): void;
-  resetForm(nextValues?: Values): void;
+  resetForm(nextState?: FormikState<Values>): void;
   submitForm(): void;
   setFormikState<K extends keyof FormikState<Values>>(
     f: (
@@ -94,6 +95,7 @@ export interface FormikConfig<Values> extends FormikSharedConfig {
     | React.ReactNode;
   initialValues: Values;
   initialStatus?: any;
+  initialErrors?: FormikErrors<Values>;
   onReset?: (values: Values, formikActions: FormikActions<Values>) => void;
   onSubmit: (values: Values, formikActions: FormikActions<Values>) => void;
   onBlur?: (field: string, error: string | undefined) => void;
